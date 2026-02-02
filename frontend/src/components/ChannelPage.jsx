@@ -12,16 +12,20 @@ function ChannelPage({ user, channel, onBack, allVideos, onUpdateVideo, onDelete
   const [newChannelDescription, setNewChannelDescription] = useState('');
 
   useEffect(() => {
-    // Load user channels from localStorage
-    const userChannels = JSON.parse(localStorage.getItem(`channels_${user.userId}`)) || [];
-    
-    if (channel) {
-      // Filter videos for this channel
-      const videos = allVideos.filter(v => v.channelId === channel.channelId);
-      setChannelVideos(videos);
-    } else if (userChannels.length === 0) {
-      setShowCreateChannel(true);
-    }
+    const loadChannelData = () => {
+      // Load user channels from localStorage
+      const userChannels = JSON.parse(localStorage.getItem(`channels_${user.userId}`)) || [];
+      
+      if (channel) {
+        // Filter videos for this channel
+        const videos = allVideos.filter(v => v.channelId === channel.channelId);
+        setChannelVideos(videos);
+      } else if (userChannels.length === 0) {
+        setShowCreateChannel(true);
+      }
+    };
+
+    loadChannelData();
   }, [user, channel, allVideos]);
 
   const handleCreateChannel = (e) => {
@@ -67,10 +71,15 @@ function ChannelPage({ user, channel, onBack, allVideos, onUpdateVideo, onDelete
     onUpdateVideo(updatedVideo);
 
     // Update localStorage
-    const allVideosUpdated = JSON.parse(localStorage.getItem('allVideos')) || allVideos;
+    const storedVideos = localStorage.getItem('allVideos');
+    let allVideosUpdated = storedVideos ? JSON.parse(storedVideos) : [...allVideos];
     const videoIndex = allVideosUpdated.findIndex(v => v.videoId === video.videoId);
     if (videoIndex !== -1) {
-      allVideosUpdated[videoIndex] = updatedVideo;
+      allVideosUpdated = [
+        ...allVideosUpdated.slice(0, videoIndex),
+        updatedVideo,
+        ...allVideosUpdated.slice(videoIndex + 1)
+      ];
       localStorage.setItem('allVideos', JSON.stringify(allVideosUpdated));
     }
 

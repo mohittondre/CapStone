@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Header.css';
 
-function Header({ toggleSidebar, user, onSignIn, onLogout, searchQuery, setSearchQuery, activeFilter, setActiveFilter }) {
+function Header({ toggleSidebar, user, onSignIn, onLogout, searchQuery, setSearchQuery }) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showChannelCreate, setShowChannelCreate] = useState(false);
   const [newChannelName, setNewChannelName] = useState('');

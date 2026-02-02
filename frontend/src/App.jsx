@@ -20,44 +20,56 @@ function App() {
   const [allVideosState, setAllVideosState] = useState(sampleVideos);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    
-    if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-      } catch (e) {
-        console.error('Error parsing user data:', e);
+    const initializeApp = () => {
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('user');
+      
+      if (token && userData) {
+        try {
+          const parsedUser = JSON.parse(userData);
+          setUser(parsedUser);
+        } catch (e) {
+          console.error('Error parsing user data:', e);
+        }
       }
-    }
-    
-    // Load all videos from localStorage if available
-    const storedVideos = localStorage.getItem('allVideos');
-    if (storedVideos) {
-      setAllVideosState(JSON.parse(storedVideos));
-    }
+      
+      // Load all videos from localStorage if available
+      const storedVideos = localStorage.getItem('allVideos');
+      if (storedVideos) {
+        try {
+          setAllVideosState(JSON.parse(storedVideos));
+        } catch (e) {
+          console.error('Error parsing stored videos:', e);
+        }
+      }
+    };
+
+    initializeApp();
   }, []);
 
   useEffect(() => {
-    let result = allVideosState;
+    const filterVideos = () => {
+      let result = allVideosState;
 
-    // Filter by category
-    if (activeFilter !== 'All') {
-      result = result.filter(video => video.category === activeFilter);
-    }
+      // Filter by category
+      if (activeFilter !== 'All') {
+        result = result.filter(video => video.category === activeFilter);
+      }
 
-    // Filter by search query
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(video => 
-        video.title.toLowerCase().includes(query) ||
-        video.description.toLowerCase().includes(query) ||
-        video.channelName.toLowerCase().includes(query)
-      );
-    }
+      // Filter by search query
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        result = result.filter(video => 
+          video.title.toLowerCase().includes(query) ||
+          video.description.toLowerCase().includes(query) ||
+          video.channelName.toLowerCase().includes(query)
+        );
+      }
 
-    setFilteredVideos(result);
+      setFilteredVideos(result);
+    };
+
+    filterVideos();
   }, [searchQuery, activeFilter, allVideosState]);
 
   // Listen for events

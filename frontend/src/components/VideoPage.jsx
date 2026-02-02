@@ -17,12 +17,21 @@ function VideoPage({ video, onBack, user, allVideos }) {
     .slice(0, 10);
 
   useEffect(() => {
-    const savedComments = localStorage.getItem(`comments_${video.videoId}`);
-    if (savedComments) {
-      setComments(JSON.parse(savedComments));
-    } else {
-      setComments(video.comments || []);
-    }
+    const loadComments = () => {
+      const savedComments = localStorage.getItem(`comments_${video.videoId}`);
+      if (savedComments) {
+        try {
+          setComments(JSON.parse(savedComments));
+        } catch (e) {
+          console.error('Error parsing comments:', e);
+          setComments(video.comments || []);
+        }
+      } else {
+        setComments(video.comments || []);
+      }
+    };
+
+    loadComments();
   }, [video]);
 
   const saveComments = (updatedComments) => {
