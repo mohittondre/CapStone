@@ -17,6 +17,7 @@ function App() {
   const [filteredVideos, setFilteredVideos] = useState(sampleVideos);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedChannel, setSelectedChannel] = useState(null);
+  const [showCreateChannel, setShowCreateChannel] = useState(false);
   const [allVideosState, setAllVideosState] = useState(sampleVideos);
 
   useEffect(() => {
@@ -103,14 +104,15 @@ function App() {
         return;
       }
       
-      // Open create channel page (null channel shows create form)
-      setSelectedChannel(null);
+      // Open create channel page
+      setShowCreateChannel(true);
     };
 
     const handleGoHome = () => {
       // Go back to homepage - reset all views
       setSelectedVideo(null);
       setSelectedChannel(null);
+      setShowCreateChannel(false);
     };
     
     window.addEventListener('videoSelected', handleVideoSelected);
@@ -165,6 +167,7 @@ function App() {
 
   const handleBackFromChannel = () => {
     setSelectedChannel(null);
+    setShowCreateChannel(false);
   };
 
   const handleUpdateVideo = (updatedVideo) => {
@@ -214,13 +217,7 @@ function App() {
     );
   }
 
-  if (selectedChannel !== null || (user && selectedChannel === null)) {
-    const userChannels = user ? JSON.parse(localStorage.getItem(`channels_${user.userId}`)) || [] : [];
-    
-    if (user && userChannels.length > 0 && selectedChannel === null) {
-      setSelectedChannel(userChannels[0]);
-    }
-    
+  if (selectedChannel !== null || showCreateChannel) {
     return (
       <div className="app">
         <Header 
@@ -246,6 +243,9 @@ function App() {
             allVideos={allVideosState}
             onUpdateVideo={handleUpdateVideo}
             onDeleteVideo={handleDeleteVideo}
+            showCreateChannel={showCreateChannel}
+            setShowCreateChannel={setShowCreateChannel}
+            setSelectedChannel={setSelectedChannel}
           />
         </main>
       </div>

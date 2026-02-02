@@ -2,26 +2,20 @@ import { useState, useEffect } from 'react';
 import VideoCard from './VideoCard';
 import './ChannelPage.css';
 
-function ChannelPage({ user, channel, onBack, allVideos, onUpdateVideo, onDeleteVideo }) {
+function ChannelPage({ user, channel, onBack, allVideos, onUpdateVideo, onDeleteVideo, showCreateChannel, setShowCreateChannel, setSelectedChannel }) {
   const [channelVideos, setChannelVideos] = useState([]);
   const [editingVideo, setEditingVideo] = useState(null);
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
-  const [showCreateChannel, setShowCreateChannel] = useState(false);
   const [newChannelName, setNewChannelName] = useState('');
   const [newChannelDescription, setNewChannelDescription] = useState('');
 
   useEffect(() => {
     const loadChannelData = () => {
-      // Load user channels from localStorage
-      const userChannels = JSON.parse(localStorage.getItem(`channels_${user.userId}`)) || [];
-      
       if (channel) {
         // Filter videos for this channel
         const videos = allVideos.filter(v => v.channelId === channel.channelId);
         setChannelVideos(videos);
-      } else if (userChannels.length === 0) {
-        setShowCreateChannel(true);
       }
     };
 
@@ -51,7 +45,7 @@ function ChannelPage({ user, channel, onBack, allVideos, onUpdateVideo, onDelete
     localStorage.setItem('user', JSON.stringify(updatedUser));
 
     setShowCreateChannel(false);
-    window.location.reload(); // Refresh to show new channel
+    setSelectedChannel(newChannel);
   };
 
   const handleStartEdit = (video) => {

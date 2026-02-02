@@ -43,8 +43,14 @@ function Sidebar({ isOpen, onClose, user }) {
       onClose();
       return;
     }
-    
+
     const event = new CustomEvent('openMyChannel');
+    window.dispatchEvent(event);
+    onClose();
+  };
+
+  const handleHome = () => {
+    const event = new CustomEvent('goHome');
     window.dispatchEvent(event);
     onClose();
   };
@@ -71,10 +77,14 @@ function Sidebar({ isOpen, onClose, user }) {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-section">
           {menuItems.map((item, index) => (
-            <a key={index} href="/" className={`sidebar-item ${item.active ? 'active' : ''}`}>
+            <button
+              key={index}
+              className={`sidebar-item ${item.active ? 'active' : ''}`}
+              onClick={item.icon === 'home' ? handleHome : undefined}
+            >
               <span className="sidebar-icon">{renderIcon(item.icon)}</span>
               <span className="sidebar-label">{item.label}</span>
-            </a>
+            </button>
           ))}
         </div>
         
@@ -97,10 +107,10 @@ function Sidebar({ isOpen, onClose, user }) {
         <div className="sidebar-section">
           <h3 className="sidebar-title">Library</h3>
           {libraryItems.map((item, index) => (
-            <a key={index} href="/" className="sidebar-item">
+            <button key={index} className="sidebar-item">
               <span className="sidebar-icon">{renderIcon(item.icon)}</span>
               <span className="sidebar-label">{item.label}</span>
-            </a>
+            </button>
           ))}
         </div>
       </aside>

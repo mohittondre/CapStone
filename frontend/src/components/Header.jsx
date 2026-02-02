@@ -14,8 +14,9 @@ function Header({ toggleSidebar, user, onSignIn, onLogout, searchQuery, setSearc
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    // Force full page reload to go to homepage
-    window.location.reload();
+    // Dispatch goHome event to navigate to homepage without page reload
+    const event = new CustomEvent('goHome');
+    window.dispatchEvent(event);
   };
 
   const handleCreateChannel = (e) => {
