@@ -10,6 +10,9 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [filteredVideos, setFilteredVideos] = useState(sampleVideos);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,6 +27,27 @@ function App() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    let result = sampleVideos;
+
+    // Filter by category
+    if (activeFilter !== 'All') {
+      result = result.filter(video => video.category === activeFilter);
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(video => 
+        video.title.toLowerCase().includes(query) ||
+        video.description.toLowerCase().includes(query) ||
+        video.channelName.toLowerCase().includes(query)
+      );
+    }
+
+    setFilteredVideos(result);
+  }, [searchQuery, activeFilter]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -62,17 +86,20 @@ function App() {
         user={user}
         onSignIn={handleSignIn}
         onLogout={handleLogout}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
       />
       <Sidebar 
         isOpen={sidebarOpen} 
         onClose={() => setSidebarOpen(false)}
       />
       <main className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <VideoGrid videos={sampleVideos} />
+        <VideoGrid videos={filteredVideos} searchQuery={searchQuery} />
       </main>
     </div>
   );
 }
 
 export default App;
-

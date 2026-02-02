@@ -1,16 +1,11 @@
-import { useState } from 'react';
 import './Header.css';
 
-function Header({ toggleSidebar, user, onSignIn, onLogout }) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState('All');
-
+function Header({ toggleSidebar, user, onSignIn, onLogout, searchQuery, setSearchQuery, activeFilter, setActiveFilter }) {
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
   };
 
-  const filters = ['All', 'Gaming', 'Music', 'Live', 'Mixes', 'React', 'JavaScript', 'Computers', 'Recently uploaded', 'New to you'];
+  const filters = ['All', 'React', 'JavaScript', 'Computers'];
 
   return (
     <>
@@ -82,4 +77,3 @@ function Header({ toggleSidebar, user, onSignIn, onLogout }) {
 }
 
 export default Header;
-

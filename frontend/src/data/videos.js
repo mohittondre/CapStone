@@ -11,6 +11,7 @@ export const sampleVideos = [
     "likes": 1023,
     "dislikes": 45,
     "uploadDate": "2024-09-20",
+    "category": "React",
     "comments": [
       {
         "commentId": "comment01",
@@ -32,6 +33,7 @@ export const sampleVideos = [
     "likes": 2100,
     "dislikes": 89,
     "uploadDate": "2024-09-15",
+    "category": "JavaScript",
     "comments": []
   },
   {
@@ -46,6 +48,7 @@ export const sampleVideos = [
     "likes": 3500,
     "dislikes": 120,
     "uploadDate": "2024-09-10",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -60,6 +63,7 @@ export const sampleVideos = [
     "likes": 1450,
     "dislikes": 56,
     "uploadDate": "2024-09-05",
+    "category": "React",
     "comments": []
   },
   {
@@ -74,6 +78,7 @@ export const sampleVideos = [
     "likes": 4800,
     "dislikes": 210,
     "uploadDate": "2024-08-28",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -88,6 +93,7 @@ export const sampleVideos = [
     "likes": 2700,
     "dislikes": 95,
     "uploadDate": "2024-08-20",
+    "category": "React",
     "comments": []
   },
   {
@@ -102,6 +108,7 @@ export const sampleVideos = [
     "likes": 3400,
     "dislikes": 145,
     "uploadDate": "2024-08-15",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -116,6 +123,7 @@ export const sampleVideos = [
     "likes": 2100,
     "dislikes": 88,
     "uploadDate": "2024-08-10",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -130,6 +138,7 @@ export const sampleVideos = [
     "likes": 5600,
     "dislikes": 230,
     "uploadDate": "2024-08-01",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -144,6 +153,7 @@ export const sampleVideos = [
     "likes": 7200,
     "dislikes": 310,
     "uploadDate": "2024-07-25",
+    "category": "Computers",
     "comments": []
   },
   {
@@ -158,6 +168,7 @@ export const sampleVideos = [
     "likes": 3800,
     "dislikes": 165,
     "uploadDate": "2024-07-20",
+    "category": "JavaScript",
     "comments": []
   },
   {
@@ -172,7 +183,7 @@ export const sampleVideos = [
     "likes": 1850,
     "dislikes": 75,
     "uploadDate": "2024-07-15",
+    "category": "React",
     "comments": []
   }
 ];
-
