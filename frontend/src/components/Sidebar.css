@@ -1,6 +1,6 @@
 .sidebar-overlay {
   position: fixed;
-  top: 112px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -10,7 +10,7 @@
 
 .sidebar {
   position: fixed;
-  top: 112px;
+  top: 56px;
   left: 0;
   bottom: 0;
   width: 240px;
@@ -35,7 +35,13 @@
   gap: 24px;
   color: #fff;
   text-decoration: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
   transition: background-color 0.2s;
+  font-size: 14px;
 }
 
 .sidebar-item:hover {
@@ -53,7 +59,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  flex-shrink: 0;
+  color: #fff;
 }
 
 .sidebar-label {
@@ -75,5 +81,56 @@
   color: #fff;
   padding: 8px 24px;
   margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 72px;
+  }
+  
+  .sidebar-item {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+  }
+  
+  .sidebar-label {
+    font-size: 10px;
+    text-align: center;
+  }
+  
+  .sidebar-title {
+    display: none;
+  }
+  
+  .sidebar-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-overlay {
+    display: block;
+  }
+  
+  .sidebar-item {
+    flex-direction: row;
+    padding: 10px 24px;
+  }
+  
+  .sidebar-label {
+    font-size: 14px;
+    text-align: left;
+  }
 }
 
