@@ -33,17 +33,8 @@ function VideoCard({ video }) {
       </div>
       <div className="video-info">
         <h3 className="video-title">{video.title}</h3>
-        <div className="video-meta">
-          <span className="video-views">{formatViews(video.views)}</span>
-          <span className="video-date">{formatDate(video.uploadDate)}</span>
-        </div>
-        <div className="video-channel">
-          <div className="channel-avatar">
-            {video.channelName.charAt(0)}
-          </div>
-          <span className="channel-name">{video.channelName}</span>
-        </div>
-        <p className="video-description">{video.description}</p>
+        <p className="video-channel">{video.channelName}</p>
+        <p className="video-meta">{formatViews(video.views)} • {formatDate(video.uploadDate)}</p>
       </div>
     </div>
   );

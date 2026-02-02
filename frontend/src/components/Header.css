@@ -111,21 +111,15 @@
   gap: 8px;
 }
 
-.icon-button {
+.user-menu {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  color: #fff;
+  gap: 12px;
 }
 
-.icon-button:hover {
-  background-color: #272727;
+.user-name {
+  color: #fff;
+  font-weight: 500;
 }
 
 .signin-button {
@@ -140,12 +134,10 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .signin-button:hover {
   background-color: rgba(62, 166, 255, 0.1);
-  border-color: #3ea6ff;
 }
 
 .signin-button svg {
@@ -153,28 +145,45 @@
   height: 24px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .header-center {
-    display: none;
-  }
-  
-  .logo-text {
-    display: none;
-  }
+.filter-bar {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background-color: #0f0f0f;
+  padding: 12px 16px;
+  z-index: 999;
 }
 
-@media (max-width: 480px) {
-  .header {
-    padding: 0 8px;
-  }
-  
-  .signin-button span {
-    display: none;
-  }
-  
-  .signin-button {
-    padding: 8px;
-  }
+.filter-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-button {
+  padding: 8px 16px;
+  background-color: #272727;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filter-button:hover {
+  background-color: #3f3f3f;
+}
+
+.filter-button.active {
+  background-color: #fff;
+  color: #0f0f0f;
 }
 
