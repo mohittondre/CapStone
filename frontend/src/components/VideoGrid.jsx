@@ -1,7 +1,7 @@
 import VideoCard from './VideoCard';
 import './VideoGrid.css';
 
-function VideoGrid({ videos, searchQuery }) {
+function VideoGrid({ videos, searchQuery, onVideoClick }) {
   if (videos.length === 0) {
     return (
       <div className="no-results">
@@ -17,7 +17,7 @@ function VideoGrid({ videos, searchQuery }) {
   return (
     <div className="video-grid">
       {videos.map((video) => (
-        <VideoCard key={video.videoId} video={video} />
+        <VideoCard key={video.videoId} video={video} onClick={onVideoClick} />
       ))}
     </div>
   );

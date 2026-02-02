@@ -1,6 +1,6 @@
 import './VideoCard.css';
 
-function VideoCard({ video }) {
+function VideoCard({ video, onClick }) {
   const formatViews = (views) => {
     if (views >= 1000000) {
       return (views / 1000000).toFixed(1) + 'M views';
@@ -26,19 +26,27 @@ function VideoCard({ video }) {
   };
 
   return (
-    <div className="video-card">
+    <div className="video-card" onClick={() => onClick && onClick(video)}>
       <div className="video-thumbnail">
         <img src={video.thumbnailUrl} alt={video.title} />
         <span className="video-duration">12:45</span>
       </div>
       <div className="video-info">
         <h3 className="video-title">{video.title}</h3>
-        <p className="video-channel">{video.channelName}</p>
-        <p className="video-meta">{formatViews(video.views)} • {formatDate(video.uploadDate)}</p>
+        <div className="video-meta">
+          <span className="video-views">{formatViews(video.views)}</span>
+          <span className="video-date">{formatDate(video.uploadDate)}</span>
+        </div>
+        <div className="video-channel">
+          <div className="channel-avatar">
+            {video.channelName.charAt(0)}
+          </div>
+          <span className="channel-name">{video.channelName}</span>
+        </div>
+        <p className="video-description">{video.description}</p>
       </div>
     </div>
   );
 }
 
 export default VideoCard;
-

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import VideoGrid from './components/VideoGrid';
+import VideoPage from './components/VideoPage';
 import Login from './components/Login';
 import { sampleVideos } from './data/videos';
 import './App.css';
@@ -13,6 +14,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
   const [filteredVideos, setFilteredVideos] = useState(sampleVideos);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -49,6 +51,16 @@ function App() {
     setFilteredVideos(result);
   }, [searchQuery, activeFilter]);
 
+  // Listen for video selection from related videos sidebar
+  useEffect(() => {
+    const handleVideoSelected = (event) => {
+      setSelectedVideo(event.detail);
+    };
+    
+    window.addEventListener('videoSelected', handleVideoSelected);
+    return () => window.removeEventListener('videoSelected', handleVideoSelected);
+  }, []);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -75,8 +87,39 @@ function App() {
     setUser(null);
   };
 
+  const handleVideoClick = (video) => {
+    setSelectedVideo(video);
+  };
+
+  const handleBackFromVideo = () => {
+    setSelectedVideo(null);
+  };
+
   if (showLogin) {
     return <Login onLogin={handleLogin} />;
+  }
+
+  if (selectedVideo) {
+    return (
+      <div className="app">
+        <Header 
+          toggleSidebar={toggleSidebar} 
+          user={user}
+          onSignIn={handleSignIn}
+          onLogout={handleLogout}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+        />
+        <VideoPage 
+          video={selectedVideo} 
+          onBack={handleBackFromVideo}
+          user={user}
+          allVideos={sampleVideos}
+        />
+      </div>
+    );
   }
 
   return (
@@ -96,7 +139,7 @@ function App() {
         onClose={() => setSidebarOpen(false)}
       />
       <main className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <VideoGrid videos={filteredVideos} searchQuery={searchQuery} />
+        <VideoGrid videos={filteredVideos} searchQuery={searchQuery} onVideoClick={handleVideoClick} />
       </main>
     </div>
   );
