@@ -5,8 +5,7 @@ A full-stack YouTube clone application built with React and Node.js.
 ## Links
 
 - **GitHub Repository**: https://github.com/mohittondre/CapStone
-- **Live Demo**: https://youtube-pearl-ten.vercel.app/
-
+- **Live Demo**: https://cap-stone-opal.vercel.app/
 ## Project Structure
 
 ```
